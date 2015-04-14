@@ -40,7 +40,6 @@ zstyle ':completion:*' special-dirs true
 
 # ===============================================================0
 # Custom configuration
-
 # ===============================================================0
 # Aliases
 alias ls='ls --color'
@@ -54,7 +53,9 @@ alias ofono='cd ~/workspace/ofono-telit/ofono'
 alias ofono-test='cd ~/workspace/ofono-telit/ofono/test'
 
 
-TODO_HOME=~/toolkit/todo.txt-cli/
+export TODO_HOME=/home/carlo/toolkit/todo.txt-cli/
+export TODO_SH=${TODO_HOME}/todo.sh
+export EDITOR=gvim
 
 alias todo.sh='"$TODO_HOME"/todo.sh'
 alias todo='"$TODO_HOME"/todo.sh -t'
@@ -86,6 +87,10 @@ alias gcommit='git commit'
 alias ghistory='git log --decorate --oneline --graph --all --date=short --pretty=format:"%C(auto)%d%Creset %C(auto)%h%Creset - %C(cyan)%an%Creset %Cgreen(%ad)%Creset : %s" '
 alias gh='git log --decorate --oneline --graph --all --date=short --pretty=format:"%C(auto)%d%Creset %C(auto)%h%Creset - %C(cyan)%an%Creset %Cgreen(%ad)%Creset : %s" '
 
+alias rmake='raffaello --file=~/toolkit/raffaello/examples/make.cfg --- make'
+
+alias gvimr='gvim --remote-silent'
+
 # ===============================================================
 # GIT status info in command-line
 
@@ -93,21 +98,27 @@ _prompt_git_status(){
     local __git_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
     if [ -n "${__git_branch}" ]; then
-        echo -n '(%F{cyan}'$__git_branch'%f)'
-    fi
+        echo -n '[%F{cyan}'$__git_branch'%f'
 
-    local __git_modified=$(git status --porcelain --untracked-files=no 2>/dev/null | wc -l )
+        local __git_tag=$(git describe --tag --abbrev=0 2>/dev/null)
 
-    if [ -n "${__git_modified}" ]; then
-        if [ "0" = "${__git_modified}" ]; then
-            echo -n "-"
-        else
-            echo -n '↪'
+        if [ ! -z ${__git_tag} ]; then
+            echo -n "-%F{green}${__git_tag}%f"
+        fi
+        echo -n "]"
+
+        local __git_modified=$(git status --porcelain --untracked-files=no 2>/dev/null | wc -l )
+
+        if [ -n "${__git_modified}" ]; then
+            if [ "0" = "${__git_modified}" ]; then
+                echo -n "-"
+            else
+                echo -n '↪'
+            fi
         fi
     fi
-
-
 }
+
 # CCACHE for android build 2015-02-09
 export USE_CCACHE=1
 
@@ -131,5 +142,5 @@ setopt no_share_history
 
 # ===============================================================
 # prompt
-PROMPT='%F{yellow}%n%f:%m> '
-RPROMPT='$(_prompt_git_status) %~ %t'
+PROMPT='%F{yellow}IamRoot%f> '
+RPROMPT='$(_prompt_git_status) %~ %F{yellow}%t%f'
