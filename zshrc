@@ -151,5 +151,13 @@ setopt no_share_history
 
 # ===============================================================
 # prompt
-PROMPT='%F{yellow}IamRoot%f> '
-RPROMPT='$(_prompt_git_status) %~ %F{yellow}%t%f'
+if [ ${USER} = root ]; then
+    PROMPT='%F{red}IamRoot%f> '
+else
+    PROMPT='%F{yellow}IamRoot%f> '
+fi
+RPROMPT='$(_prompt_git_status) %3c %F{yellow}%t%f'
+
+# NOTE: run
+#   chsh -s /bin/zsh
+# to use zsh as root shell
