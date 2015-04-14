@@ -152,9 +152,9 @@ setopt no_share_history
 # ===============================================================
 # prompt
 if [ ${USER} = root ]; then
-    PROMPT='%F{red}IamRoot%f> '
+    PROMPT='%F{red}IamRoot%f%# '
 else
-    PROMPT='%F{yellow}IamRoot%f> '
+    PROMPT='%F{yellow}IamRoot%f%# '
 fi
 RPROMPT='$(_prompt_git_status) %3c %F{yellow}%t%f'
 
