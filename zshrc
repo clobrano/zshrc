@@ -134,7 +134,7 @@ export USE_CCACHE=1
 # ===============================================================
 # Updating PATH
 # ===============================================================
-PATH=$PATH:$TODO_HOMñE
+PATH=$PATH:$TODO_HOME
 PATH=$PATH:~/toolkit/icdiff
 PATH=$PATH:~/toolkit
 PATH=~/bin:$PATH
@@ -151,12 +151,17 @@ setopt no_share_history
 
 # ===============================================================
 # prompt
+__prompt_line()
+{
+    echo -n "Iam%n%"
+}
+
 if [ ${USER} = root ]; then
-    PROMPT='%F{red}IamRoot%f%# '
+    PROMPT='%F{red}$(__prompt_line)f# '
 else
-    PROMPT='%F{yellow}IamRoot%f%# '
+    PROMPT='%F{yellow}$(__prompt_line)f> '
 fi
-RPROMPT='$(_prompt_git_status) %3c %F{yellow}%t%f'
+RPROMPT='$(_prompt_git_status) %2c %F{yellow} %T%f'
 
 # NOTE: run
 #   chsh -s /bin/zsh
