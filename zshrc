@@ -74,18 +74,27 @@ alias opr='raffaello "\(A\)=>red_bold" "\(B\)=>yellow" "\(C\)=>green" "\d{4}-\d{
 alias report='raffaello "\(A\)=>red_bold" "\(B\)=>yellow" "\(C\)=>green" "\d{4}-\d{2}-\d+=>cyan" "\+\w+=>red" "min:\d+=>purple" --- cat ~/toolkit/todo.txt-cli/done.txt'
 alias tao='"$TODO_HOME"/todo.sh -t add +ofono'
 
+
+
+# ==============================================
+# GIT aliases
+alias gl='git log --decorate=short'
+
 alias gstatus='git status'
 alias gs='git status'
 
-alias gdiff='git diff -w'
+alias gd='git diff -w'
 alias gdif='git difftool --no-prompt --extcmd "icdiff --line-numbers --highlight"'
 
-alias gadd='git add'
+alias ga='git add'
 
 alias gcommit='git commit'
 
 alias ghistory='git log --decorate --oneline --graph --all --date=short --pretty=format:"%C(auto)%d%Creset %C(auto)%h%Creset - %C(cyan)%an%Creset %Cgreen(%ad)%Creset : %s" '
 alias gh='git log --decorate --oneline --graph --all --date=short --pretty=format:"%C(auto)%d%Creset %C(auto)%h%Creset - %C(cyan)%an%Creset %Cgreen(%ad)%Creset : %s" '
+# ==============================================
+
+
 
 alias rmake='raffaello --file=~/toolkit/raffaello/examples/make.cfg --- make'
 
