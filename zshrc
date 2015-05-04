@@ -107,22 +107,13 @@ _prompt_git_status(){
     local __git_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
     if [ -n "${__git_branch}" ]; then
-        echo -n '[%F{cyan}'$__git_branch'%f'
-
-
-        local __git_tag=$(git describe --tag --abbrev=0 2>/dev/null)
-        if [ ! -z ${__git_tag} ]; then
-            echo -n "-%F{green}${__git_tag}%f"
-        fi
-        echo -n "]"
-
-
         local __git_modified=$(git status --porcelain --untracked-files=no 2>/dev/null | wc -l )
+
         if [ -n "${__git_modified}" ]; then
             if [ "0" = "${__git_modified}" ]; then
                 echo -n "-"
             else
-                echo -n '↪'
+                echo -n '↪ '
             fi
         fi
 
@@ -131,8 +122,14 @@ _prompt_git_status(){
             if [ "0" = "${__git_stash}" ]; then
                 echo -n "-"
             else
-                echo -n " %F{red}S${__git_stash}%f"
+                echo -n " %F{red}S${__git_stash}%f "
             fi
+        fi
+
+        echo -n '%F{cyan}'$__git_branch'%f'
+        local __git_tag=$(git describe --tag --abbrev=0 2>/dev/null)
+        if [ ! -z ${__git_tag} ]; then
+            echo -n "-%F{green}${__git_tag}%f"
         fi
     fi
 }
