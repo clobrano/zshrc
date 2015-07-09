@@ -47,13 +47,13 @@ alias ll='ls -l --color'
 
 # Generic alias for work
 alias workspace='cd ~/workspace'
-alias toolkit='cd ~/toolkit'
+alias Toolkit='cd ~/Toolkit'
 
 alias ofono='cd ~/workspace/ofono-telit/ofono'
 alias ofono-test='cd ~/workspace/ofono-telit/ofono/test'
 
 
-export TODO_HOME=/home/carlo/toolkit/todo.txt-cli/
+export TODO_HOME=/home/carlo/Toolkit/todo.txt-cli/
 export TODO_SH=${TODO_HOME}/todo.sh
 export EDITOR=gvim
 
@@ -70,8 +70,8 @@ alias tnow='"$TODO_HOME"/todo.sh donow '
 alias tn='"$TODO_HOME"/todo.sh donow '
 alias opo='"$TODO_HOME"/todo.sh projectview -+done -+fixed -+rejected -+wontdo -+sometime -@actions +ofono'
 
-alias opr='raffaello "\(A\)=>red_bold" "\(B\)=>yellow" "\(C\)=>green" "\d{4}-\d{2}-\d+=>cyan" "\+\w+=>red" "min:\d+=>purple" --- cat ~/toolkit/todo.txt-cli/todo.txt'
-alias report='raffaello "\(A\)=>red_bold" "\(B\)=>yellow" "\(C\)=>green" "\d{4}-\d{2}-\d+=>cyan" "\+\w+=>red" "min:\d+=>purple" --- cat ~/toolkit/todo.txt-cli/done.txt'
+alias opr='raffaello "\(A\)=>red_bold" "\(B\)=>yellow" "\(C\)=>green" "\d{4}-\d{2}-\d+=>cyan" "\+\w+=>red" "min:\d+=>purple" --- cat ~/Toolkit/todo.txt-cli/todo.txt'
+alias report='raffaello "\(A\)=>red_bold" "\(B\)=>yellow" "\(C\)=>green" "\d{4}-\d{2}-\d+=>cyan" "\+\w+=>red" "min:\d+=>purple" --- cat ~/Toolkit/todo.txt-cli/done.txt'
 alias tao='"$TODO_HOME"/todo.sh -t add +ofono'
 
 
@@ -96,9 +96,14 @@ alias gh='git log --decorate --oneline --graph --all --date=short --pretty=forma
 
 
 
-alias rmake='raffaello --file=~/toolkit/raffaello/examples/make.cfg --- make'
+alias rmake='raffaello --file=~/Toolkit/raffaello/examples/make.cfg --- make'
 
 alias gvimr='gvim --remote-silent'
+
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # ===============================================================
 # GIT status info in command-line
@@ -127,7 +132,7 @@ _prompt_git_status(){
         fi
 
         echo -n '%F{cyan}'$__git_branch'%f'
-        local __git_tag=$(git describe --tag --abbrev=0 2>/dev/null)
+        local __git_tag=$(git describe --tags 2>/dev/null)
         if [ ! -z ${__git_tag} ]; then
             echo -n "-%F{green}${__git_tag}%f"
         fi
@@ -141,14 +146,15 @@ export USE_CCACHE=1
 # Updating PATH
 # ===============================================================
 PATH=$PATH:$TODO_HOME
-PATH=$PATH:~/toolkit/icdiff
-PATH=$PATH:~/toolkit
+PATH=$PATH:~/Toolkit/icdiff
+PATH=$PATH:~/Toolkit/jarvis
+PATH=$PATH:~/Toolkit
 PATH=~/bin:$PATH
 
 # Android
 PATH=$PATH:~/workspace/android-x86/out/host/linux-x86/bin/
 PATH=$PATH:~/workspace/android-x86/ndk
-PATH=$PATH:~/workspace/android-ndk-r10d
+
 
 
 # History is shared only with child session
@@ -159,16 +165,18 @@ setopt no_share_history
 # prompt
 __prompt_line()
 {
-    echo -n "Iam%n%"
+    echo -n "%n"
 }
 
 if [ ${USER} = root ]; then
-    PROMPT='%F{red}$(__prompt_line)f# '
+    PROMPT='%F{red}$(__prompt_line)%f# '
 else
-    PROMPT='%F{yellow}$(__prompt_line)f> '
+    PROMPT='%F{yellow}$(__prompt_line)%f> '
 fi
 RPROMPT='$(_prompt_git_status) %2c %F{yellow} %T%f'
 
 # NOTE: run
 #   chsh -s /bin/zsh
 # to use zsh as root shell
+alias jarvis=jarvis.py
+alias rmake='raffaello --file=make.cfg --- make'
