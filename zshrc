@@ -171,12 +171,16 @@ __prompt_line()
 if [ ${USER} = root ]; then
     PROMPT='%F{red}$(__prompt_line)%f# '
 else
-    PROMPT='%F{yellow}$(__prompt_line)%f> '
+    PROMPT='%F{yellow}$(__prompt_line)%f: '
 fi
 RPROMPT='$(_prompt_git_status) %2c %F{yellow} %T%f'
 
 # NOTE: run
 #   chsh -s /bin/zsh
 # to use zsh as root shell
-alias jarvis=jarvis.py
+
+
 alias rmake='raffaello --file=make.cfg --- make'
+alias easy='python3 ~/Toolkit/jarvis/easy.py'
+alias zinit='source ~/.zshrc'
+alias remote-home='cd /mnt/remote_home/'
